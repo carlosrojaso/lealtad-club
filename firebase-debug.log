@@ -1,0 +1,102 @@
+[debug] [2025-03-10T00:29:36.348Z] ----------------------------------------------------------------------
+[debug] [2025-03-10T00:29:36.352Z] Command:       /nix/store/ixbb20farqh1f4fqbmsn6b1ixn8mc8ij-nodejs-20.18.1/bin/node /nix/store/v1w21fn24i4jclvq1kry1ai6ra7aqrb4-firebase-tools-13.32.0/lib/node_modules/firebase-tools/lib/bin/firebase.js init hosting:github
+[debug] [2025-03-10T00:29:36.352Z] CLI Version:   13.32.0
+[debug] [2025-03-10T00:29:36.352Z] Platform:      linux
+[debug] [2025-03-10T00:29:36.353Z] Node Version:  v20.18.1
+[debug] [2025-03-10T00:29:36.353Z] Time:          Mon Mar 10 2025 00:29:36 GMT+0000 (Coordinated Universal Time)
+[debug] [2025-03-10T00:29:36.353Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-03-10T00:29:36.786Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-03-10T00:29:36.786Z] > authorizing via signed-in user (ing.carlosandresrojas@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /home/user/lealtad-club
+
+Before we get started, keep in mind:
+
+  * You are initializing within an existing Firebase project directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2025-03-10T00:29:36.791Z] Using project from CLI flag: carlosrojas-dev
+[debug] [2025-03-10T00:29:36.792Z] No OAuth tokens found
+[debug] [2025-03-10T00:29:36.793Z] No OAuth tokens found
+[debug] [2025-03-10T00:29:36.793Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-03-10T00:29:36.793Z] > authorizing via signed-in user (ing.carlosandresrojas@gmail.com)
+[debug] [2025-03-10T00:29:36.796Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/carlosrojas-dev [none]
+[debug] [2025-03-10T00:29:37.213Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/carlosrojas-dev 200
+[debug] [2025-03-10T00:29:37.214Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/carlosrojas-dev {"projectId":"carlosrojas-dev","projectNumber":"23072282984","displayName":"carlosrojas-dev","name":"projects/carlosrojas-dev","resources":{"hostingSite":"carlosrojas-dev","realtimeDatabaseInstance":"carlosrojas-dev"},"state":"ACTIVE","etag":"1_56e2f449-4f50-4684-b10c-e5b3141123a6"}
+[info] i  Using project carlosrojas-dev (carlosrojas-dev) 
+[info] 
+=== Hosting:github Setup
+[info] 
+[info] i  Detected a .git folder at /home/user/lealtad-club 
+[info] i  Authorizing with GitHub to upload your service account to a GitHub repository's secrets store. 
+[info] 
+[info] Visit this URL on this device to log in:
+[info] https://github.com/login/oauth/authorize?client_id=89cf50f02ac6aaed3484&state=89866152&redirect_uri=http%3A%2F%2Flocalhost%3A9005&scope=read%3Auser%20repo%20public_repo
+[info] 
+[info] Waiting for authentication...
+[debug] [2025-03-10T00:30:14.857Z] ----------------------------------------------------------------------
+[debug] [2025-03-10T00:30:14.860Z] Command:       /nix/store/ixbb20farqh1f4fqbmsn6b1ixn8mc8ij-nodejs-20.18.1/bin/node /nix/store/v1w21fn24i4jclvq1kry1ai6ra7aqrb4-firebase-tools-13.32.0/lib/node_modules/firebase-tools/lib/bin/firebase.js init hosting:github
+[debug] [2025-03-10T00:30:14.860Z] CLI Version:   13.32.0
+[debug] [2025-03-10T00:30:14.860Z] Platform:      linux
+[debug] [2025-03-10T00:30:14.861Z] Node Version:  v20.18.1
+[debug] [2025-03-10T00:30:14.861Z] Time:          Mon Mar 10 2025 00:30:14 GMT+0000 (Coordinated Universal Time)
+[debug] [2025-03-10T00:30:14.861Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-03-10T00:30:15.320Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-03-10T00:30:15.321Z] > authorizing via signed-in user (ing.carlosandresrojas@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /home/user/lealtad-club
+
+Before we get started, keep in mind:
+
+  * You are initializing within an existing Firebase project directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2025-03-10T00:30:15.326Z] Using project from CLI flag: carlosrojas-dev
+[debug] [2025-03-10T00:30:15.328Z] No OAuth tokens found
+[debug] [2025-03-10T00:30:15.328Z] No OAuth tokens found
+[debug] [2025-03-10T00:30:15.328Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-03-10T00:30:15.328Z] > authorizing via signed-in user (ing.carlosandresrojas@gmail.com)
+[debug] [2025-03-10T00:30:15.331Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/carlosrojas-dev [none]
+[debug] [2025-03-10T00:30:15.722Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/carlosrojas-dev 200
+[debug] [2025-03-10T00:30:15.722Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/carlosrojas-dev {"projectId":"carlosrojas-dev","projectNumber":"23072282984","displayName":"carlosrojas-dev","name":"projects/carlosrojas-dev","resources":{"hostingSite":"carlosrojas-dev","realtimeDatabaseInstance":"carlosrojas-dev"},"state":"ACTIVE","etag":"1_56e2f449-4f50-4684-b10c-e5b3141123a6"}
+[info] i  Using project carlosrojas-dev (carlosrojas-dev) 
+[info] 
+=== Hosting:github Setup
+[info] 
+[info] i  Detected a .git folder at /home/user/lealtad-club 
+[info] i  Authorizing with GitHub to upload your service account to a GitHub repository's secrets store. 
+[info] 
+[info] Visit this URL on this device to log in:
+[info] https://github.com/login/oauth/authorize?client_id=89cf50f02ac6aaed3484&state=825954622&redirect_uri=http%3A%2F%2Flocalhost%3A9005&scope=read%3Auser%20repo%20public_repo
+[info] 
+[info] Waiting for authentication...

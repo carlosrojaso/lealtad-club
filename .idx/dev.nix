@@ -6,9 +6,14 @@
   # Use https://search.nixos.org/packages to find packages
   packages = [
     pkgs.nodejs_20
+    pkgs.google-chrome
   ];
+
   # Sets environment variables in the workspace
-  env = {};
+  env = {
+    DISPLAY = ":1";
+    CHROME_BIN="/usr/bin/google-chrome";
+  };
   idx = {
     # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"
     extensions = [
