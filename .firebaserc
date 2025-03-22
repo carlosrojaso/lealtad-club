@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "carlosrojas-dev"
+  },
+  "targets": {
+    "carlosrojas-dev": {
+      "hosting": {
+        "prod": [
+          "lealtad-club"
+        ]
+      }
+    }
   }
 }
