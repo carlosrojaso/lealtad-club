@@ -1,0 +1,83 @@
+.web-login {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  max-width: 900px;
+  margin: 2rem auto;
+  background: #fff7ed;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+  .form-section {
+    flex: 1;
+    padding: 2rem;
+    font-family: sans-serif;
+
+    h1 {
+      color: #8b2c01;
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      color: #5c4033;
+      margin-bottom: 1.5rem;
+    }
+
+    form {
+      label {
+        display: block;
+        margin-top: 1rem;
+        color: #8b2c01;
+        font-weight: 600;
+      }
+
+      input {
+        width: 100%;
+        padding: 0.5rem;
+        margin-top: 0.25rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      .forgot {
+        margin-top: 0.5rem;
+        text-align: right;
+        font-size: 0.85rem;
+        color: #5c4033;
+        cursor: pointer;
+      }
+
+      button {
+        width: 100%;
+        margin-top: 1.5rem;
+        background-color: #c2410c;
+        color: white;
+        border: none;
+        padding: 0.75rem;
+        border-radius: 6px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s;
+
+        &:hover {
+          background-color: #a63b08;
+        }
+      }
+    }
+  }
+
+  .illustration-section {
+    flex: 1;
+    background: #fb923c;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+}
