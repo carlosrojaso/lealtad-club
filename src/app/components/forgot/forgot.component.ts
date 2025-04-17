@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-forgot',
   imports: [],
   templateUrl: './forgot.component.html',
-  styleUrl: './forgot.component.css'
+  styleUrls: ['./forgot.component.css']
 })
 export class ForgotComponent {
 
