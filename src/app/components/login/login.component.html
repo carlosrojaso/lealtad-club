@@ -1,0 +1,33 @@
+<div class="web-login">
+  <div class="form-section">
+    <h1>Welcome Back</h1>
+    <p>Log in to access your loyalty dashboard.</p>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <label>ID</label>
+      <input formControlName="id" placeholder="Enter Unique ID" />
+      <div *ngIf="f.id?.touched && f.id?.invalid">ID is required (min 6 characters)</div>
+
+      <label>Email</label>
+      <input formControlName="email" placeholder="Email" />
+      <div *ngIf="f.email?.touched && f.email?.invalid">Valid email is required</div>
+
+      <label>Password</label>
+      <input type="password" formControlName="password" placeholder="Password" />
+      <div *ngIf="f.password?.touched && f.password?.invalid">Password is required (min 6 characters)</div>
+
+      <div class="forgot">
+        <a routerLink="/forgot">Forgot Password?</a>
+      </div>
+      <button type="submit" [disabled]="loginForm.invalid">Continue</button>
+    </form>
+    <div class="register">
+      <p>Don't have an account?</p>
+      <a routerLink="/register">Register</a>
+    </div>
+  </div>
+
+  <div class="illustration-section">
+    <img src="assets/login_illustration.svg" alt="login" />
+  </div>
+</div>

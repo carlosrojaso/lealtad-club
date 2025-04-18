@@ -1,0 +1,34 @@
+<div class="register-container">
+  <h1>Register</h1>
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <label>Company Name</label>
+    <input formControlName="companyName" placeholder="Enter Company Name" />
+    <div *ngIf="f.companyName?.touched && f.companyName?.invalid">Company Name is required</div>
+
+    <label>ID</label>
+    <input formControlName="id" placeholder="Enter Unique ID" />
+    <div *ngIf="f.id?.touched && f.id?.invalid">ID is required (min 6 characters)</div>
+
+    <label>Email</label>
+    <input formControlName="email" placeholder="Enter Email" />
+    <div *ngIf="f.email?.touched && f.email?.invalid">Valid email is required</div>
+
+    <label>Password</label>
+    <input type="password" formControlName="password" placeholder="Enter Password" />
+    <div *ngIf="f.password?.touched && f.password?.invalid">Password is required (min 6 characters)</div>
+
+    <label>Retype Password</label>
+    <input type="password" formControlName="retypePassword" placeholder="Retype Password" />
+    <div *ngIf="f.retypePassword?.touched && f.retypePassword?.invalid">Retype Password is required</div>
+
+    <label>Phone (Optional)</label>
+    <input formControlName="phone" placeholder="Enter Phone Number" />
+
+    <button type="submit" [disabled]="registerForm.invalid">Register</button>
+    <div class="login-redirect">
+      <p>Already have an account?</p>
+      <a routerLink="/">Login</a>
+    </div>
+  </form>
+  <div class="illustration"></div>
+</div>
