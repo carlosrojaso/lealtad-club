@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
 
 @Component({
@@ -13,7 +13,7 @@ import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
 })
 export class LoginComponent {
   loginForm: any;
-  constructor(private fb: FormBuilder, private auth: Auth) {
+  constructor(private fb: FormBuilder, private auth: Auth, private router: Router) {
     this.loginForm = this.fb.group({
       id: ['', [Validators.required, Validators.minLength(6)]],
       email: ['', [Validators.required, Validators.email]],
@@ -32,10 +32,14 @@ export class LoginComponent {
 
     try {
       await signInWithEmailAndPassword(this.auth, email!, password!);
-      alert('Login successful');
+      this.goToDashboard();
     } catch (err) {
       console.error(err);
       alert('Login failed');
     }
+  }
+
+  goToDashboard() {
+    this.router.navigate(['/dashboard']);
   }
 }

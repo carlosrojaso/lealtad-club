@@ -1,1 +1,17 @@
-<p>forgot works!</p>
+<div class="forgot-container">
+  <div class="content">
+    <h1>Forgot Password</h1>
+    <p class="description">Enter your email and we'll send you a link to reset your password.</p>
+
+    <form [formGroup]="forgotForm" (ngSubmit)="onSubmit()">
+      <label for="email">Email</label>
+      <input id="email" type="email" formControlName="email" placeholder="example@email.com" />
+      <div *ngIf="forgotForm.get('email')?.touched && forgotForm.get('email')?.invalid" class="error">Valid email is required</div>
+
+      <button type="submit" [disabled]="forgotForm.invalid">Send Reset Link</button>
+    </form>
+
+    <a class="back-link" routerLink="/login">Back to Login</a>
+  </div>
+  <div class="illustration"></div>
+</div>
