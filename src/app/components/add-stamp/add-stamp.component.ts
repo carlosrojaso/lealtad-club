@@ -5,9 +5,24 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatError } from '@angular/material/form-field';
-import { Firestore, doc, updateDoc, getDoc } from '@angular/fire/firestore';
+import {
+  Firestore,
+  collection,
+  query,
+  where,
+  getDocs,
+  addDoc,
+  updateDoc,
+  CollectionReference,
+  doc
+} from '@angular/fire/firestore';
+import { Auth, authState } from '@angular/fire/auth';
+import { inject } from '@angular/core';
+
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { CommonModule } from '@angular/common';
+import { IdentifierType } from '../../enums/identifier-type.enum';
+import { setDoc } from 'firebase/firestore';
 
 @Component({
   standalone: true,
@@ -30,7 +45,8 @@ export class AddStampComponent {
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<AddStampComponent>,
     private firestore: Firestore,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private auth: Auth = inject(Auth)
   ) {
     this.addStampForm = this.fb.group({
       identifier: ['', [Validators.required]],
@@ -42,44 +58,115 @@ export class AddStampComponent {
       alert('Please enter a valid identifier.');
       return;
     }
-
+  
     const identifier = this.addStampForm.value.identifier;
-
-    // Confirm action
+    const identifierType = this.identifyValue(identifier);
+  
+    if (!identifierType) {
+      alert('Invalid identifier format. Please enter a valid email, phone number, NIT, or cedula.');
+      return;
+    }
+  
     const confirmDialog = this.dialog.open(ConfirmDialogComponent, {
       data: { message: `Are you sure you want to add a stamp for ${identifier}?` },
     });
-
+  
     confirmDialog.afterClosed().subscribe(async (result) => {
-      if (result === 'yes') {
-        try {
-          // Fetch the user document
-          const userDocRef = doc(this.firestore, 'cards', identifier);
-          const userDoc = await getDoc(userDocRef);
-
-          if (userDoc.exists()) {
-            const userCards = userDoc.data();
-            const updatedStamps = (userCards['stamps'] || 0) + 1;
-
-            // Update the user's stamps
-            await updateDoc(userDocRef, { stamps: updatedStamps });
-
-            alert('Stamp added successfully!');
-            this.dialogRef.close();
-          } else {
-            alert('User not found.');
-          }
-        } catch (error) {
-          console.error(error);
-          alert('Failed to add stamp. Please try again.');
-        }
-      } else {
+      if (result !== 'yes') {
         this.addStampForm.reset();
+        return;
+      }
+  
+      try {
+        const user = this.auth.currentUser;
+        if (!user?.email) {
+          console.error('User not authenticated ', user);
+          alert('Unable to identify current user.');
+          return;
+        }
+  
+        const cardsRef = collection(this.firestore, 'cards') as CollectionReference;
+        const field = this.getFirestoreField(identifierType);
+        const q = query(cardsRef, where(field, '==', identifier));
+        const querySnapshot = await getDocs(q);
+  
+        if (!querySnapshot.empty) {
+          // User exists, update the document
+          const docSnap = querySnapshot.docs[0];
+          const data = docSnap.data();
+          const newStamps = (data['stamps'] || 0) + 1;
+  
+          await updateDoc(docSnap.ref, { stamps: newStamps });
+  
+          alert('Stamp added successfully!');
+          this.dialogRef.close();
+        } else {
+          // User not found — create new document
+          const newDoc: any = {
+            [identifierType]: identifier,
+            company_id: user.email,
+            stamps: 1,
+          };
+  
+          if (!newDoc.company_multiplier) {
+            newDoc.company_multiplier = 10;
+          }
+  
+          // If the identifier is a cedula, use it as the doc id
+          if (identifierType === IdentifierType.Cedula) {
+            const newDocRef = doc(this.firestore, 'cards', identifier);
+            await updateDoc(newDocRef, newDoc).catch(async () => {
+              // If it doesn't exist, create it instead
+              await setDoc(newDocRef, newDoc);
+            });
+          } else {
+            await addDoc(cardsRef, newDoc);
+          }
+  
+          alert('User created and stamp added successfully!');
+          this.dialogRef.close();
+        }
+      } catch (error) {
+        console.error(error);
+        alert('Failed to add stamp. Please try again.');
       }
     });
   }
-
+  
   onCancel() {
     this.dialogRef.close();
+  }
+
+  identifyValue(value: string): IdentifierType | null {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^3\d{9}$/;
+    const nitRegex = /^\d{9,10}$/;
+    const cedulaRegex = /^\d{6,10}$/;
+
+    if (emailRegex.test(value)) {
+      return IdentifierType.Email;
+    } else if (phoneRegex.test(value)) {
+      return IdentifierType.Phone;
+    } else if (nitRegex.test(value)) {
+      return IdentifierType.NIT;
+    } else if (cedulaRegex.test(value)) {
+      return IdentifierType.Cedula;
+    } else {
+      return null;
+    }
+  }
+
+  getFirestoreField(identifierType: IdentifierType): 'id' | 'email' | 'phone' {
+    switch (identifierType) {
+      case IdentifierType.Email:
+        return 'email';
+      case IdentifierType.Phone:
+        return 'phone';
+      case IdentifierType.Cedula:
+      case IdentifierType.NIT:
+        return 'id';
+      default:
+        throw new Error('Unknown identifier type');
+    }
   }
 }
