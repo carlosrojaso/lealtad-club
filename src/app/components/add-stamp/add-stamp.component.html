@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>Add Stamp</h1>
+<div mat-dialog-content>
+  <form [formGroup]="addStampForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Identifier (ID, Email, or Phone)</mat-label>
+      <input matInput formControlName="identifier" />
+      <mat-error *ngIf="addStampForm.get('identifier')?.invalid">Identifier is required</mat-error>
+    </mat-form-field>
+    <div mat-dialog-actions>
+      <button mat-button type="button" (click)="onCancel()">Cancel</button>
+      <button mat-raised-button color="primary" type="submit">Accept</button>
+    </div>
+  </form>
+</div>

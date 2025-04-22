@@ -1,0 +1,34 @@
+:host {
+  display: block;
+  padding: 1rem;
+  background-color: #1c1c1e; // Dark background but distinguishable
+  color: #ffffff; // Light text
+}
+
+mat-form-field {
+  width: 100%;
+  background-color: #2a2a2d;
+  border-radius: 6px;
+  padding: 0.5rem;
+}
+
+mat-label,
+input,
+.mat-input-element {
+  color: #ffffff !important;
+}
+
+.mat-dialog-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+button.mat-button {
+  color: #e06fff; // Pink or light purple for "Cancel"
+}
+
+button.mat-raised-button {
+  background-color: #e06fff;
+  color: #ffffff;
+}

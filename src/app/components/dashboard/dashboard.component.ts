@@ -4,6 +4,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { Router } from '@angular/router';
 import { Auth, signOut } from '@angular/fire/auth';
+import { AddStampComponent } from '../add-stamp/add-stamp.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   standalone: true,
@@ -13,10 +15,20 @@ import { Auth, signOut } from '@angular/fire/auth';
   imports: [MatSidenavModule, MatToolbarModule, MatListModule],
 })
 export class DashboardComponent {
-  constructor(private auth: Auth, private router: Router) {}
+  constructor(
+    private auth: Auth,
+    private dialog: MatDialog,
+    private router: Router
+  ) {}
 
   async logout() {
     await signOut(this.auth);
     this.router.navigate(['/login']);
+  }
+
+  openAddStampModal() {
+    this.dialog.open(AddStampComponent, {
+      width: '400px',
+    });
   }
 }
