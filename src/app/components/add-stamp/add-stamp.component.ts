@@ -55,7 +55,7 @@ export class AddStampComponent {
 
   async onSubmit() {
     if (this.addStampForm.invalid) {
-      alert('Please enter a valid identifier.');
+      console.log('Please enter a valid identifier.');
       return;
     }
   
@@ -63,7 +63,7 @@ export class AddStampComponent {
     const identifierType = this.identifyValue(identifier);
   
     if (!identifierType) {
-      alert('Invalid identifier format. Please enter a valid email, phone number, NIT, or cedula.');
+      console.error('Invalid identifier format. Please enter a valid email, phone number, NIT, or cedula.');
       return;
     }
   
@@ -81,13 +81,16 @@ export class AddStampComponent {
         const user = this.auth.currentUser;
         if (!user?.email) {
           console.error('User not authenticated ', user);
-          alert('Unable to identify current user.');
           return;
         }
   
         const cardsRef = collection(this.firestore, 'cards') as CollectionReference;
         const field = this.getFirestoreField(identifierType);
-        const q = query(cardsRef, where(field, '==', identifier));
+        const q = query(
+          cardsRef,
+          where(field, '==', identifier),
+          where('company_id', '==', user.email)
+        );
         const querySnapshot = await getDocs(q);
   
         if (!querySnapshot.empty) {
@@ -98,12 +101,11 @@ export class AddStampComponent {
   
           await updateDoc(docSnap.ref, { stamps: newStamps });
   
-          alert('Stamp added successfully!');
+          console.log('Stamp added successfully!');
           this.dialogRef.close();
         } else {
-          // User not found — create new document
           const newDoc: any = {
-            [identifierType]: identifier,
+            id: identifier,
             company_id: user.email,
             stamps: 1,
           };
@@ -114,7 +116,7 @@ export class AddStampComponent {
   
           // If the identifier is a cedula, use it as the doc id
           if (identifierType === IdentifierType.Cedula) {
-            const newDocRef = doc(this.firestore, 'cards', identifier);
+            const newDocRef = doc(this.firestore, 'stamps', identifier);
             await updateDoc(newDocRef, newDoc).catch(async () => {
               // If it doesn't exist, create it instead
               await setDoc(newDocRef, newDoc);
@@ -123,12 +125,11 @@ export class AddStampComponent {
             await addDoc(cardsRef, newDoc);
           }
   
-          alert('User created and stamp added successfully!');
+          console.log('User created and stamp added successfully!');
           this.dialogRef.close();
         }
       } catch (error) {
-        console.error(error);
-        alert('Failed to add stamp. Please try again.');
+        console.error('Failed to add stamp. Please try again.', error);
       }
     });
   }
