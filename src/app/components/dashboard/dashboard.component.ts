@@ -6,13 +6,20 @@ import { Router } from '@angular/router';
 import { Auth, signOut } from '@angular/fire/auth';
 import { AddStampComponent } from '../add-stamp/add-stamp.component';
 import { MatDialog } from '@angular/material/dialog';
+import { RouterModule } from '@angular/router';
+
 
 @Component({
   standalone: true,
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
-  imports: [MatSidenavModule, MatToolbarModule, MatListModule],
+  imports: [
+    MatSidenavModule,
+    MatToolbarModule,
+    MatListModule,
+    RouterModule
+  ],
 })
 export class DashboardComponent {
   constructor(

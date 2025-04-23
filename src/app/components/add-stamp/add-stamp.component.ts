@@ -46,10 +46,11 @@ export class AddStampComponent {
     private dialogRef: MatDialogRef<AddStampComponent>,
     private firestore: Firestore,
     private dialog: MatDialog,
-    private auth: Auth = inject(Auth)
+    private auth: Auth = inject(Auth),
+    @Inject(MAT_DIALOG_DATA) public data: { customerId: string }
   ) {
     this.addStampForm = this.fb.group({
-      identifier: ['', [Validators.required]],
+      identifier: [data.customerId || '', [Validators.required]],
     });
   }
 
@@ -116,7 +117,7 @@ export class AddStampComponent {
   
           // If the identifier is a cedula, use it as the doc id
           if (identifierType === IdentifierType.Cedula) {
-            const newDocRef = doc(this.firestore, 'stamps', identifier);
+            const newDocRef = doc(this.firestore, 'cards', identifier);
             await updateDoc(newDocRef, newDoc).catch(async () => {
               // If it doesn't exist, create it instead
               await setDoc(newDocRef, newDoc);
