@@ -1,0 +1,36 @@
+<div class="customer-cards-container">
+  <mat-form-field appearance="fill" class="company-select">
+    <mat-label>Select Company</mat-label>
+    <mat-select [(value)]="selectedCompany" (selectionChange)="onCompanyChange($event.value)">
+      <mat-option *ngFor="let company of companies" [value]="company">
+        {{ company }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="container">
+    <div class="deck" *ngFor="let card of paginatedCards; let i = index">
+      <div class="card hovercard" (click)="flipCard(i)" [ngClass]="{ 'flipped': flippedCardIndex === i }">
+        <div class="front face">
+          <h2>{{ selectedCompany }}</h2>
+          <div class="stamps">
+            <div *ngFor="let stamp of card" class="circle" [class.filled]="stamp === 1"></div>
+          </div>
+          <div class="bottext">
+            <h3>{{ countStamps(card) }} / 6</h3>
+          </div>
+        </div>
+        <div class="back face">
+          <h2>{{ selectedCompany }}</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <mat-paginator
+    [length]="cards.length"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[1]"
+    (page)="onPageChange($event)"
+  ></mat-paginator>
+</div>

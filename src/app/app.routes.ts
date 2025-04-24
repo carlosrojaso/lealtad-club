@@ -16,4 +16,5 @@ export const routes: Routes = [
       { path: 'add-stamp', loadComponent: () => import('./components/add-stamp/add-stamp.component').then(m => m.AddStampComponent) },
     ],
   },
+  { path: 'customer-cards', loadComponent: () => import('./components/customer-cards/customer-cards.component').then(m => m.CustomerCardsComponent) },
 ];
