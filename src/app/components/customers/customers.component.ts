@@ -6,6 +6,7 @@ import { Firestore, collection, query, where, getDocs, deleteDoc, doc } from '@a
 import { Auth } from '@angular/fire/auth';
 import { MatDialog } from '@angular/material/dialog';
 import { AddStampComponent } from '../add-stamp/add-stamp.component';
+import { ConfigService } from '../../services/config.service';
 
 @Component({
   standalone: true,
@@ -21,7 +22,9 @@ export class CustomersComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
 
-  constructor(private firestore: Firestore, private auth: Auth, private dialog: MatDialog) {}
+  constructor(private firestore: Firestore, private auth: Auth, private dialog: MatDialog, private configService: ConfigService) {
+    this.pageSize = this.configService.pageSize;
+  }
 
   async ngOnInit() {
     const user = this.auth.currentUser;

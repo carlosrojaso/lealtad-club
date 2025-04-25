@@ -12,12 +12,12 @@
     <div class="deck" *ngFor="let card of paginatedCards; let i = index">
       <div class="card hovercard" (click)="flipCard(i)" [ngClass]="{ 'flipped': flippedCardIndex === i }">
         <div class="front face">
-          <h2>{{ selectedCompany }}</h2>
+          <h2> Card {{ currentPage + 1 }}</h2>
           <div class="stamps">
             <div *ngFor="let stamp of card" class="circle" [class.filled]="stamp === 1"></div>
           </div>
           <div class="bottext">
-            <h3>{{ countStamps(card) }} / 6</h3>
+            <h3>{{ countStamps(card) }} / {{ stampsPerCard }}</h3>
           </div>
         </div>
         <div class="back face">

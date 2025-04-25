@@ -4,6 +4,7 @@ import { Firestore, collection, query, where, getDocs } from '@angular/fire/fire
 import { MatSelectModule } from '@angular/material/select';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { CommonModule } from '@angular/common';
+import { ConfigService } from '../../services/config.service';
 
 @Component({
   standalone: true,
@@ -21,6 +22,7 @@ export class CustomerCardsComponent implements OnInit {
   pageSize = 1; // 1 card per page
   currentPage = 0;
   flippedCardIndex: number | null = null;
+  stampsPerCard = 6;
 
   flipCard(index: number) {
     this.flippedCardIndex = this.flippedCardIndex === index ? null : index;
@@ -29,7 +31,9 @@ export class CustomerCardsComponent implements OnInit {
   countStamps(card: number[]): number {
     return card.filter(s => s === 1).length;
   }
-  constructor(private route: ActivatedRoute, private firestore: Firestore) {}
+  constructor(private route: ActivatedRoute, private firestore: Firestore, private configService: ConfigService) {
+    this.stampsPerCard = this.configService.stampsPerCard; 
+  }
   async ngOnInit() {
     // Get customerId from query params
     this.customerId = this.route.snapshot.queryParamMap.get('customerId');
@@ -64,10 +68,10 @@ export class CustomerCardsComponent implements OnInit {
   }
 
   updateCards(stamps: number) {
-    // Create cards with 6 stamps per card
-    const totalCards = Math.ceil(stamps / 6);
+    // Create cards with this.stampsPerCard  stamps per card
+    const totalCards = Math.ceil(stamps / this.stampsPerCard );
     this.cards = Array.from({ length: totalCards }, (_, i) =>
-      Array.from({ length: 6 }, (_, j) => (i * 6 + j < stamps ? 1 : 0))
+      Array.from({ length: this.stampsPerCard  }, (_, j) => (i * this.stampsPerCard  + j < stamps ? 1 : 0))
     );
     this.paginateCards();
   }
@@ -81,7 +85,7 @@ export class CustomerCardsComponent implements OnInit {
   onCompanyChange(companyId: string) {
     this.selectedCompany = companyId;
     this.currentPage = 0;
-    this.updateCards(this.cards.length * 6); // Update cards for the selected company
+    this.updateCards(this.cards.length * this.stampsPerCard ); // Update cards for the selected company
   }
 
   onPageChange(event: PageEvent) {
