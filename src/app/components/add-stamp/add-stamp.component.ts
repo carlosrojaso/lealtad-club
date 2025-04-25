@@ -50,7 +50,7 @@ export class AddStampComponent {
     @Inject(MAT_DIALOG_DATA) public data: { customerId: string }
   ) {
     this.addStampForm = this.fb.group({
-      identifier: [data.customerId || '', [Validators.required]],
+      identifier: [data?.customerId || '', [Validators.required]],
     });
   }
 
