@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { Subscription } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -12,9 +13,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   styleUrls: ['./login.component.scss'],
   imports: [CommonModule, ReactiveFormsModule, RouterModule, MatCheckboxModule]
 })
-export class LoginComponent {
+export class LoginComponent implements OnDestroy {
   loginForm: any;
   isCompany: boolean = false;
+  private subscription: Subscription;
   
   constructor(private fb: FormBuilder, private auth: Auth, private router: Router) {
     this.loginForm = this.fb.group({
@@ -26,7 +28,7 @@ export class LoginComponent {
 
     this.updateValidators();
 
-    this.loginForm.get('isCompany').valueChanges.subscribe(() => {
+    this.subscription = this.loginForm.get('isCompany').valueChanges.subscribe(() => {
       this.updateValidators();
     });
   }
@@ -51,6 +53,12 @@ export class LoginComponent {
 
   get f() {
     return this.loginForm.controls;
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   async onSubmit() {
