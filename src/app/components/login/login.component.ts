@@ -5,20 +5,26 @@ import { RouterModule, Router } from '@angular/router';
 import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Subscription } from 'rxjs';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   standalone: true,
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  imports: [CommonModule, ReactiveFormsModule, RouterModule, MatCheckboxModule]
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, MatCheckboxModule, TranslateModule]
 })
 export class LoginComponent implements OnDestroy {
   loginForm: any;
   isCompany: boolean = false;
   private subscription: Subscription;
   
-  constructor(private fb: FormBuilder, private auth: Auth, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private auth: Auth,
+    private router: Router,
+    private translate: TranslateService
+) {
     this.loginForm = this.fb.group({
       isCompany: [false],
       id: ['', [Validators.minLength(6)]],
@@ -27,6 +33,9 @@ export class LoginComponent implements OnDestroy {
     });
 
     this.updateValidators();
+
+    this.translate.setDefaultLang('es');
+    this.translate.use('es');
 
     this.subscription = this.loginForm.get('isCompany').valueChanges.subscribe(() => {
       this.updateValidators();

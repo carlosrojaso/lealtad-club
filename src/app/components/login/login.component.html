@@ -1,49 +1,57 @@
 <div class="web-login">
   <div class="form-section">
-    <h1>Welcome Back</h1>
-    <p>Log in to access your loyalty system.</p>
+    <h1>{{ 'WELCOME_BACK' | translate }}</h1>
+    <p>{{ 'LOGIN_PROMPT' | translate }}</p>
 
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <!-- Company checkbox -->
       <div class="checkbox-container">
-        <mat-checkbox formControlName="isCompany" [checked]="isCompany">I am a company</mat-checkbox>
+        <mat-checkbox formControlName="isCompany" [checked]="isCompany">
+          {{ 'I_AM_A_COMPANY' | translate }}
+        </mat-checkbox>
       </div>
 
       <!-- ID field - only required for customers -->
       <div *ngIf="!f.isCompany.value" class="form-field">
-        <label>ID</label>
-        <input formControlName="id" placeholder="Enter Unique ID" />
-        <div *ngIf="f.id?.touched && f.id?.invalid" class="error-message">ID is required (min 6 characters)</div>
+        <label>{{ 'ID' | translate }}</label>
+        <input formControlName="id" [placeholder]="'ENTER_UNIQUE_ID' | translate" />
+        <div *ngIf="f.id?.touched && f.id?.invalid" class="error-message">
+          {{ 'ID_REQUIRED' | translate }}
+        </div>
       </div>
 
       <!-- Email field - only required for companies -->
       <div *ngIf="f.isCompany.value" class="form-field">
-        <label>Email</label>
-        <input formControlName="email" placeholder="Email" />
-        <div *ngIf="f.email?.touched && f.email?.invalid" class="error-message">Valid email is required</div>
+        <label>{{ 'EMAIL' | translate }}</label>
+        <input formControlName="email" [placeholder]="'EMAIL' | translate" />
+        <div *ngIf="f.email?.touched && f.email?.invalid" class="error-message">
+          {{ 'EMAIL_REQUIRED' | translate }}
+        </div>
       </div>
 
       <!-- Password field - only required for companies -->
       <div *ngIf="f.isCompany.value" class="form-field">
-        <label>Password</label>
-        <input type="password" formControlName="password" placeholder="Password" />
-        <div *ngIf="f.password?.touched && f.password?.invalid" class="error-message">Password is required (min 6 characters)</div>
+        <label>{{ 'PASSWORD' | translate }}</label>
+        <input type="password" formControlName="password" [placeholder]="'PASSWORD' | translate" />
+        <div *ngIf="f.password?.touched && f.password?.invalid" class="error-message">
+          {{ 'PASSWORD_REQUIRED' | translate }}
+        </div>
       </div>
 
       <!-- Forgot password link - only shown for companies -->
       <div *ngIf="f.isCompany.value" class="forgot">
-        <a routerLink="/forgot">Forgot Password?</a>
+        <a routerLink="/forgot">{{ 'FORGOT_PASSWORD' | translate }}</a>
       </div>
       
       <button type="submit" [disabled]="loginForm.invalid">
-        {{ f.isCompany.value ? 'Login' : 'View My Cards' }}
+        {{ f.isCompany.value ? ('LOGIN' | translate) : ('VIEW_MY_CARDS' | translate) }}
       </button>
     </form>
     
     <!-- Register link - only shown for companies -->
     <div *ngIf="f.isCompany.value" class="register">
-      <p>Don't have an account?</p>
-      <a routerLink="/register">Register</a>
+      <p>{{ 'NO_ACCOUNT' | translate }}</p>
+      <a routerLink="/register">{{ 'REGISTER' | translate }}</a>
     </div>
   </div>
 
